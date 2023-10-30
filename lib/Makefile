@@ -1,4 +1,4 @@
-SUBDIRS=vector
+SUBDIRS=list queue stack tree vector
 
 .PHONY: all clean check
 

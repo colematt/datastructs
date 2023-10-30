@@ -1,6 +1,11 @@
 DIR:=tree
 SRC:=$(addsuffix .c,$(DIR))
 
+CFLAGS=-g -Wall -std=c99 -I../../include
+LDFLAGS=
+LDLIBS=-lcunit
+ARFLAGS= rcs
+
 all: test
 
 # This rule builds the CUnit executable, test

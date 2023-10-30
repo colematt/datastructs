@@ -6,4 +6,4 @@ ARFLAGS=rcs
 .PHONY: all clean
 
 all clean:
-  $(MAKE) -C lib $@
+	$(MAKE) -C lib $@
