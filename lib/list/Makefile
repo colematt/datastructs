@@ -5,6 +5,7 @@ CFLAGS=-g -Wall -std=c99 -I../../include
 LDFLAGS=
 LDLIBS=-lcunit
 ARFLAGS= rcs
+RMFLAGS=-f
 
 all: test
 
