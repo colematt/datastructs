@@ -57,7 +57,7 @@ size_t find(Vector *v, Data d) { return 0; }
  *
  * @param      v     { The vector to search }
  * @param[in]  d     { The data value to insert }
- * @param[in]  idx   The index
+ * @param[in]  idx   The insertion index
  *
  * @return     { If idx is in bounds, a pointer to the newly inserted item. If
  *             idx is out of bounds, a null pointer; the array is unchanged. }

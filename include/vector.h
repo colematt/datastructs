@@ -20,10 +20,10 @@ void deleteVector(Vector *v);
 
 Data *at(Vector *v, size_t index);
 Vector *clear(Vector *v);
-Data *find(Vector *v, Data d);
-void insert(Vector *v, Data d, size_t idx);
+size_t find(Vector *v, Data d);
+Data *insert(Vector *v, Data d, size_t idx);
 void print_Vector(Vector *v);
-void resize(Vector *v, size_t size);
-void remove(Vector *v, size_t index);
+Vector *resize(Vector *v, size_t size);
+Data remove(Vector *v, size_t index);
 
 #endif // VECTOR_H
