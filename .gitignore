@@ -53,3 +53,7 @@ dkms.conf
 
 # Sublime Text
 *.sublime-workspace
+
+# Clangd
+.clangd
+compile_commands.json
