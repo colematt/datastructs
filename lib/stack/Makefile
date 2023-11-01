@@ -4,7 +4,8 @@ SRC:=$(addsuffix .c,$(DIR))
 CFLAGS=-g -Wall -std=c99 -I../../include
 LDFLAGS=
 LDLIBS=-lcunit
-ARFLAGS= rcs
+ARFLAGS=rcs
+RMFLAGS=-f
 
 all: test
 
