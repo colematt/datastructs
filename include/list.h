@@ -33,6 +33,6 @@ List *append(List *l, Node *n);
 List *remove(List *l, Node *pos);
 void printNode(Node* n);
 void printList(List *l);
-void traverse(List *l, int (*func)(void*));
+void traverse(List *l, int (*func)(const void*));
 
 #endif // LIST_H

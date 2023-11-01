@@ -16,7 +16,7 @@ Node *newNode(Data d);
 /**
  * @brief      { Deallocate an existing node }
  *
- * @param      n     { A pointer to the node to be deallocated }
+ * @param      n     { A pointer to the node to be deallocated. }
  */
 void deleteNode(Node *n);
 
@@ -39,7 +39,7 @@ void deleteList(List *l);
 
 /**
  * @brief      { The number of nodes in the List. Value is contained in `.len`
- *             field, not calculated in O(n) time }
+ *             field, not calculated in O(n) time. }
  *
  * @param      l     { A pointer to the list }
  *
@@ -63,15 +63,14 @@ Node *find(List *l, Data d);
  *             the `.size` field of the linked list structure. }
  *
  * @param      l     { The linked list  }
- * @param      n     { A pointer to the node to be inserted. }
- * @param      pos   { A pointer to the node to be inserted before.}
+ * @param      n     { A pointer to the Node to be inserted. }
+ * @param      pos   { A pointer to the Node to be inserted before.}
  *
- * @note       { If l or n are a nullptr, behavior is undefined; return a
- *             nullptr. If pos is a nullptr, assume the list is empty, and
- *             initialize the list's head and tail to the inserted node. If the
- *             list was not actually empty, then existing linked nodes will be
- *             lost. It is the caller's responsibility to check these conditions
- *             prior to calling.}
+ * @note       { If l or n are a nullptr. If pos is a nullptr, assume the list
+ *             is empty, and initialize the list's head and tail to the inserted
+ *             node. If the list was not actually empty, then existing linked
+ *             nodes will be lost. It is the caller's responsibility to check
+ *             these conditions prior to calling.}
  *
  * @return     { A pointer to the modified list. }
  */
@@ -81,14 +80,14 @@ List *insert(List *l, Node *n, Node *pos);
  * @brief      { Insert a Node at the end of the list. Increment the `.size`
  *             field and update the tail and/or head pointers.}
  *
- * @param      l     { A pointer to the List to have contents added at the end. }
+ * @param      l     { A pointer to the List to have contents added at the end.
+ *                   }
  * @param      n     { A pointer to the Node to be added. }
  *
  * @return     { A pointer to the modified List. }
  *
- * @note       { If l or n is a nullptr, behavior is undefined; return a
- *             nullptr. If l has no nodes (`.len=0`), initialize the list with n
- *             and set `.len=1`.}
+ * @note       { If l or n is a nullptr, behavior is undefined. If l has no
+ *             nodes (`.len=0`), initialize the list with n and set `.len=1`.}
  */
 List *append(List *l, Node *n);
 
@@ -111,21 +110,34 @@ List *remove(List *l, Node *n);
 /**
  * @brief      Prints a node.
  *
- * @param      n     { parameter_description }
+ * @param      n     { The node to be printed }
+ *
+ * @note       {If n is a nullptr, print `(null)`. Otherwise, print
+ *             `{.data=%d, .prev=%p, .next=%p}`. It is the caller's
+ *             responsibility to ensure n is a valid Node.}
  */
-void printNode(Node* n);
+void printNode(Node *n);
 
 /**
  * @brief      Prints a list.
  *
- * @param      l     { parameter_description }
+ * @param      l     {The list to be printed.}
+ *
+ * @note       { If n is a nullptr, print `(null)`. Otherwise, print
+ *             `Node(%p){.head=%p, .tail=%p, .len=%lu}`, where the first
+ *             specifier is the address of the Node, and subsequent specifiers
+ *             are the fields of the struct. It is the caller's responsibility
+ *             to ensure l is a valid List.}
  */
 void printList(List *l);
 
 /**
- * @brief      { function_description }
+ * @brief      { Traverse a linked list, calling a callback visitor function on
+ *             each visited node.}
  *
- * @param      l     { parameter_description }
- * @param[in]  func  The function
+ * @param      l     { The list to be traversed. }
+ * @param[in]  func  { The callback function to be called when visiting each
+ *                   node. Its single argument is a pointer to the node being
+ *                   visited (cast as a const void pointer).}
  */
-void traverse(List *l, int (*func)(void*));
+void traverse(List *l, int (*func)(const void *n));
