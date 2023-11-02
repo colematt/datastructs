@@ -110,7 +110,9 @@ Data *insert(Vector *v, Data d, size_t idx) { return NULL; }
  *
  *             If the array is resized to a smaller size, some data may be lost
  *             (i.e. data is not copied beyond index=capacity-1. It is the
- *             caller's responsibility to check this condition.}
+ *             caller's responsibility to check this condition.
+ *             
+ *             If realloc() fails, return a void pointer. It is the caller's responsibility to check this condition.}
  */
 Vector *resize(Vector *v, size_t count) { return NULL; }
 
