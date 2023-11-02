@@ -1,6 +1,8 @@
 # datastructs
 Implementations of classic data structures in C for CS580U.
 
+[![C/C++ CI](https://github.com/colematt/datastructs/actions/workflows/make-test-ci.yml/badge.svg)](https://github.com/colematt/datastructs/actions/workflows/make-test-ci.yml)
+
 <!-- MarkdownTOC -->
 
 - [Team Members](#team-members)
