@@ -13,7 +13,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: make
+    - name: Install CUnit
+      run: sudo apt install -y libcunit1-dev
+    - name: Run Make
       run: make
-    - name: make check
+    - name: Run tests
       run: make check
