@@ -1,5 +1,6 @@
 DIR:=list
 SRC:=$(addsuffix .c,$(DIR))
+OBJ:=$(addsuffix .o,$(DIR))
 
 CFLAGS=-g -Wall -std=c99 -I../../include
 LDFLAGS=
@@ -7,7 +8,7 @@ LDLIBS=-lcunit
 ARFLAGS= rcs
 RMFLAGS=-f
 
-all: test
+all: $(OBJ) test
 
 # This rule builds the CUnit executable, test
 test: $(SRC) test.c

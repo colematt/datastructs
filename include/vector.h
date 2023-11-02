@@ -1,6 +1,6 @@
 #include <stdbool.h>
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #ifndef DATA_T
 #define DATA_T
@@ -11,19 +11,21 @@ typedef uint64_t Data;
 #define VECTOR_H
 
 typedef struct Vector {
-	size_t size; // amount of storage space in the Vector
-	Data *array; // pointer to the storage space
+  size_t size;     // index of last element in the array
+  size_t capacity; // the total number of elements that can be held in array
+  Data *array;     // pointer to the storage space
 } Vector;
 
 Vector *newVector(size_t size);
 void deleteVector(Vector *v);
+int printVector(const void *v);
 
 Data *at(Vector *v, size_t index);
-Vector *clear(Vector *v);
-size_t find(Vector *v, Data d);
+size_t capacity();
+void clear(Vector *v);
+Data *find(Vector *v, Data d);
 Data *insert(Vector *v, Data d, size_t idx);
-void print_Vector(Vector *v);
-Vector *resize(Vector *v, size_t size);
-Data remove(Vector *v, size_t index);
+Vector *resize(Vector *v, size_t count);
+Data *remove(Vector *v, size_t index);
 
 #endif // VECTOR_H

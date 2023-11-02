@@ -3,14 +3,18 @@
 #include <stdint.h>
 
 /**
- * @brief      { Allocate a new vector, whose array storage is properly-sized,
- *             and zero-initialized, and marked unused. }
+ * @brief      { Allocate a new vector }
  *
- * @param[in]  size  The size
+ * @param[in]  capacity  The capacity of the array
  *
- * @return     { Return a pointer to the newly allocated vector. }
+ * @return     { Return a pointer to the newly allocated Vector. }
+ *
+ * @details    { This function has the following effects: (1) Allocate array
+ *             storage which is properly-sized and zero-initialized; (2) .size
+ *             is set to 0; (3) .capacity is set to the size of the array
+ *             storage.}
  */
-Vector *newVector(size_t size) { return NULL; }
+Vector *newVector(size_t capacity) { return NULL; }
 
 /**
  * @brief      { De-allocate an existing vector, including all internal
@@ -19,6 +23,21 @@ Vector *newVector(size_t size) { return NULL; }
  * @param      v     { Pointer to the vector to be deallocated. }
  */
 void deleteVector(Vector *v) { return; }
+
+/**
+ * @brief      Prints the contents of the vector.
+ *
+ * @param      v     { A void pointer to the vector to print }
+ *
+ * @return     { The number of characters written, which is the sum of the
+ *             return values to any printf() calls. }
+ *
+ * @details       { The output is formatted `Vector(%p){.size=%lu,
+ *             .array={%llu,%llu,%llu,..}}` where the first specifier is the
+ *             address of the Vector, and subsequent specifiers contain items in
+ *             the Vector's storage array (not including any elements beyond . }
+ */
+int printVector(const void *v) { return 0; }
 
 /**
  * @brief      { Return a pointer to the Data element at an index. If the index
@@ -32,71 +51,86 @@ void deleteVector(Vector *v) { return; }
 Data *at(Vector *v, size_t index) { return NULL; }
 
 /**
- * @brief      Clears the vector in place, setting all values to zero.
+ * @brief      Clears the vector in place.
  *
  * @param      v     { The vector }
  *
- * @return     A pointer to the cleared vector.
+ * @details    { Clearing a vector means setting all array values to zero, and
+ *             updating .size=0. Capacity does not change, nor is any memory
+ *             freed. }
  */
-Vector *clear(Vector *v) { return NULL; }
+void clear(Vector *v) { return; }
 
 /**
- * @brief      Searches for the first matching Data item.
+ * @brief      Search for the first matching Data item.
  *
  * @param      v     { The vector to search }
  * @param[in]  d     The Data to find
  *
- * @return     { The index of the found Data item }
+ * @return     { A pointer to the found Data item. If the item is not found, a
+ *             nullptr is returned. }
  */
-size_t find(Vector *v, Data d) { return 0; }
+Data *find(Vector *v, Data d) { return NULL; }
 
 /**
- * @brief      {Inserts a data item into the Vector, potentially overwriting an
- *             existing item. If the index is out of bounds, a null pointer is
- *             returned.}
+ * @brief      {Inserts a data item into the Vector.}
  *
  * @param      v     { The vector to search }
  * @param[in]  d     { The data value to insert }
  * @param[in]  idx   The insertion index
  *
  * @return     { If idx is in bounds, a pointer to the newly inserted item. If
- *             idx is out of bounds, a null pointer; the array is unchanged. }
+ *             idx is out of bounds, a null pointer; the array is unchanged.
+ *
+ * @details    { Insertions can be destructive, potentially overwriting an
+ *             existing item. It is the caller's responsibility to check this.
+ *
+ *             Upon insertion, .size=max(idx+1,.size). If idx > .size-1, the
+ *             elements between array[size-1] and array[idx] become "filled" by
+ *             zeroes. This is also caller's responsibility.
+ *
+ *             If inserting the item would cause size > capacity, the vector's
+ *             array is resized by a factor of 2, then the new element is
+ *             inserted. }
  */
 Data *insert(Vector *v, Data d, size_t idx) { return NULL; }
 
 /**
- * @brief      Prints the contents of the vector.
+ * @brief      Dynamically resizes the Vector's array storage.
  *
- * @param      v     { The vector to print }
- *
- * @note       Consider a vector of size 4. The output is formatted `{.size=4,
- *             .array={0,1,2,3}}`
- */
-void print_Vector(Vector *v) { return; }
-
-/**
- * @brief      Reallocates a new vector, copies contents from old to new, and
- *             frees the old vector. If the vector is resized to a smaller size,
- *             some data may be lost (i.e. data is not copied beyond
- *             index=size-1. The .size field of the new Vector is updated.
- *
- * @param      v     { A pointer to the old vector }
- * @param[in]  size  The size of the new vector.
+ * @param      v      { A pointer to the old vector }
+ * @param[in]  count  The new capacity of the array.
  *
  * @return     { A pointer to the new vector. }
+ *
+ * @details    {  This function has the following effects: (1) Reallocates a new
+ *             array, (2) copies contents from old to new (3) Updates .capacity
+ *             (4) Frees the old array (if necessary). Whether (1), (2) and (4)
+ *             are done manually or by realloc() is implementation dependent.
+ *
+ *             If the array is resized to a smaller size, some data may be lost
+ *             (i.e. data is not copied beyond index=capacity-1. It is the
+ *             caller's responsibility to check this condition.}
  */
-Vector *resize(Vector *v, size_t size) { return NULL; }
+Vector *resize(Vector *v, size_t count) { return NULL; }
 
 /**
- * @brief      Set a data item at index to zero. Do not resize or free memory.
+ * @brief      Remove an item from the vector.
  *
  * @param      v      { The vector whose data item will be removed }
  * @param[in]  index  The index of the data item to remove.
  *
- * @return     { The Data item removed from the Vector. }
+ * @return     { A pointer to the former address of item removed from the
+ * Vector. }
  *
- * @note       Consider a vector={.size=4, .array={0,1,2,3}}, and the removal
- *             index=2. Then after the remove() call, the vector is
- *             `{.size=4, .array={0,1,0,3}}`
+ * @details    { If the index is out of bounds, return a nullptr. Note that
+ *             removal also causes the .size field to update, but not the
+ *             .capacity field. Furthermore, no memory is freed.
+ *
+ *             Consider a vector={.size=4, .array={0,1,2,3}}, and the removal
+ *             index=2. Then after the remove() call, the vector is `{.size=4,
+ *             .array={0,1,3,0}}`. The item '2' is removed, all subsequent
+ *             values shift left one index, and the vacated storage is filled
+ *             with 0. The return value is (&vector.array)+2}
  */
-Data remove(Vector *v, size_t index) { return 0; }
+Data *remove(Vector *v, size_t index) { return NULL; }

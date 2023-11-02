@@ -1,36 +1,38 @@
 #include <stdbool.h>
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
-#ifndef DATASTRUCTS_DATA_T
-#define DATASTRUCTS_DATA_T 
+#ifndef DATA_T
+#define DATA_T
 typedef uint64_t Data;
-#endif // DATASTRUCTS_DATA_T
+#endif // DATA_T
 
-#ifndef DATASTRUCTS_STACK_H
-#define DATASTRUCTS_STACK_H 
+#ifndef STACK_H
+#define STACK_H
 
-typedef struct StackNode {
+typedef struct Node {
   Data value;
-  struct StackNode *next;
-} StackNode;
+  struct Node *next;
+} Node;
 
 typedef struct Stack {
-  StackNode *top;
-  int length;
+  Node *top;
+  size_t size;
 } Stack;
 
-StackNode *new_StackNode(Data d);
-void del_StackNode(StackNode *sn);
-StackNode *copy_StackNode(StackNode *sn);
+Node *newNode(Data d);
+void deleteNode(Node *n);
+int printNode(Node *n);
 
-Stack *new_Stack();
-void del_Stack(Stack *s);
-Stack *copy_Stack(Stack *s);
+Stack *newStack();
+void deleteStack(Stack *s);
+int printStack(Stack *s);
 
-void clear_Stack(Stack *s);
-void push_Stack(Stack *s, Data d);
-Data pop_Stack(Stack *s);
-Data peek_Stack(Stack *s);
+void clear(Stack *s);
+size_t size(Stack *l);
+Node *top(Stack *s);
+Node *pop(Stack *s);
+Node *push(Stack *s, Data d);
+void traverse(Stack *s, int (*func)(const void *));
 
-#endif // DATASTRUCTS_STACK_H
+#endif // STACK_H

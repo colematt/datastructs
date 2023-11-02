@@ -2,51 +2,51 @@
 #include <stdint.h>
 #include <stddef.h>
 
-#ifndef DATASTRUCTS_DATA_T
-#define DATASTRUCTS_DATA_T 
+#ifndef DATA_T
+#define DATA_T 
 typedef uint64_t Data;
 #endif // DATASTRUCTS_DATA_T
 
-#ifndef DATASTRUCTS_TREE_H
-#define DATASTRUCTS_TREE_H
+#ifndef TREE_H
+#define TREE_H
 
-typedef struct TreeNode {
+typedef struct Node {
 	Data data;
-	struct TreeNode *parent;
-	struct TreeNode *left;
-	struct TreeNode *right;
-} TreeNode;
+	struct Node *parent;
+	struct Node *left;
+	struct Node *right;
+} Node;
 
 typedef struct Tree {
-	TreeNode *root;
+	Node *root;
 } Tree;
 
-// TreeNode constructor/destructors
-TreeNode *new_TreeNode(Data d);
-TreeNode *copy_TreeNode(TreeNode *tn);
-void del_TreeNode(TreeNode *tn);
+// Node constructor/destructors
+Node *newNode(Data d);
+void deleteNode(Node *n);
+int printNode(const void *n);
 
 // Tree constructor/destructors
-Tree *new_Tree();
-Tree *copy_Tree(Tree *t);
-void del_Tree(Tree *t);
+Tree *newTree();
+void deleteTree(Tree *t);
+int printTree(const void *t);
 
 // Tree properties
 size_t height(Tree *t);
 size_t size(Tree *t);
-size_t depth(TreeNode *tn);
-bool isLeaf(TreeNode *tn);
-TreeNode *max(TreeNode *tn);
-TreeNode *min(TreeNode *tn);
+size_t depth(Node *n);
+bool isLeaf(Node *n);
+Node *max(Node *n);
+Node *min(Node *n);
 
 // Tree mutators/accessors
 void insertData(Tree *t, Data d);
-TreeNode *findData(Tree *t, Data d);
-TreeNode *removeData(Tree *t, Data d);
+Node *findData(Tree *t, Data d);
+Node *removeData(Tree *t, Data d);
 
 // Traversal Routines
-void preorder(Tree *t);
-void inorder(Tree *t);
-void postorder(Tree *t);
+void preorder(Tree *t, int (*func)(const void *));
+void inorder(Tree *t, int (*func)(const void *));
+void postorder(Tree *t, int (*func)(const void *));
 
 #endif // DATASTRUCTS_TREE_H 

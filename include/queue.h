@@ -1,37 +1,40 @@
 #include <stdbool.h>
-#include <stdint.h>
 #include <stddef.h>
+#include <stdint.h>
 
-#ifndef DATASTRUCTS_DATA_T
-#define DATASTRUCTS_DATA_T 
+#ifndef DATA_T
+#define DATA_T
 typedef uint64_t Data;
-#endif // DATASTRUCTS_DATA_T
+#endif // DATA_T
 
-#ifndef DATASTRUCTS_QUEUE_H
-#define DATASTRUCTS_QUEUE_H 
+#ifndef QUEUE_H
+#define QUEUE_H
 
-typedef struct QueueNode {
-	Data value;
-	QueueNode *next;
-} QueueNode;
+typedef struct Node {
+  Data value;
+  struct Node *next;
+} Node;
 
 typedef struct Queue {
-	QueueNode *head,*tail;
-	int length;
+  Node *head, *tail;
+  size_t size;
 } Queue;
 
-QueueNode *new_QueueNode(Data d);
-void del_QueueNode(QueueNode *qn);
-QueueNode *copy_QueueNode(QueueNode *qn);
+Node *newNode(Data d);
+void deleteNode(Node *n);
+int printNode(const void *n);
 
-Queue *new_Queue();
-void del_Queue(Queue *q);
-Queue *copy_Queue(Queue *q);
+Queue *newQueue();
+void deleteQueue(Queue *q);
+int printQueue(const void *q);
 
-
-void clear_Queue(Queue *q);
-void enqueue_Queue(Queue *q, Data d);
-Data dequeue_Queue(Queue *q);
-Data peek_Queue(Queue *q);
+Node *back(Queue *q);
+void clear(Queue *q);
+Node *dequeue(Queue *q);
+Node *enqueue(Queue *q, Data d);
+Node front(Queue *q);
+Data peek(Queue *q);
+size_t size(Queue *q);
+void traverse(Queue *q, int (*func)(const void *));
 
 #endif // DATASTRUCTS_QUEUE_H

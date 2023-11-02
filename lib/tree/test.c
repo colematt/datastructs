@@ -1,8 +1,8 @@
 #include <CUnit/Basic.h>
 #include <CUnit/CUnit.h>
 #include <CUnit/TestRun.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 /* The suite initialization function.
  * Returns zero on success, non-zero otherwise.
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   if (CUE_SUCCESS != CU_initialize_registry())
     return CU_get_error();
 
-/* add a suite to the registry */
+  /* add a suite to the registry */
   CU_pSuite pSuite_tree = NULL;
   pSuite_tree = CU_add_suite("Suite_Tree", init_suite_tree, clean_suite_tree);
   if (NULL == pSuite_tree) {
