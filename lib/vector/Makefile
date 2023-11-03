@@ -13,21 +13,20 @@ all: $(OBJ) test
 
 # This rule builds the CUnit executable, test
 test: $(SRC) test.c
-	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS)
+	$(warning $(DIR) $@ rule not implemented)
 
-# This rule runs the CUnit executable, test
+# This rule runs the CUnit unit testing executable
 .PHONY: check
 check: test
-	./test | tee -a $(LOG)
+	./test
 
 # This rule runs the CUnit test executable inside Valgrind
 .PHONY: memcheck
 memcheck: test
-	valgrind --leak-check=summary --error-exitcode=1 ./test 2>&1 \
-	| tee -a $(LOG)
+	valgrind --leak-check=summary --error-exitcode=1 --log-file=$(LOG) ./test
 
-# This rule removes the CUnit executable, test 
-# and any cruft in the directory like temp or lock files
+# This rule removes all files created after running `make all`, `make check` 
+# or `make memcheck`, and any cruft in the directory like temp or lock files
 .PHONY: clean
 clean:
-	$(RM) $(RMFLAGS) $(OBJ) test $(LOG)
+	$(warning $(DIR) $@ rule not implemented)
