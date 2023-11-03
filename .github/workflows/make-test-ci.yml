@@ -20,4 +20,9 @@ jobs:
     - name: Run tests
       run: make check
     - name: Run Valgrind
-      run: valgrind --quiet --leak-check=summary --error-exitcode=1 ./test
+      run: make memcheck
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Upload artifacts
+        path: ./**/[abc]rtifac?/*.log
+        if-no-files-found: warn

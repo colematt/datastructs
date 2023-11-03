@@ -4,13 +4,10 @@ LDLIBS=-lcunit
 ARFLAGS=rcs
 RMFLAGS=-f
 
-.PHONY: all clean check
+.PHONY: all clean check memcheck
 
-all:
-	$(MAKE) -C lib all
-
-check:
-	$(MAKE) -C lib check
+all check memcheck:
+	$(MAKE) -C lib $@
 
 compile_commands.json:
 	bear -- $(MAKE)
